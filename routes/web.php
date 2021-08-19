@@ -27,23 +27,18 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'au
 
     Route::resource('property', 'PropertyController', ['names' => 'admin.property']);
 
-    // ajax crud
-
-    Route::resource('ajax-crud', 'AjaxCrudController');
-
-    Route::post('ajax-crud/update', 'AjaxCrudController@update')->name('admin.ajax-crud.update');
-
-    Route::get('ajax-crud/destroy/{id}', 'AjaxCrudController@destroy');
-
     //Admin SubCategory
 
     Route::resource('subcategory', 'SubcategoryController', ['names' => 'admin.subcategory']);
-    Route::get('/subcategory/edit/{id}', 'SubcategoryController@editcat');
-    Route::post('/subcategory-update', 'SubcategoryController@updateSubcategory')->name('admin.update.subcategory');
 
     //Admin Category
 
     Route::resource('category', 'CategoryController', ['names' => 'admin.category']);
+
+    //Admin Slider
+
+    Route::resource('slider', 'SliderController', ['names' => 'admin.slider']);
+    Route::post('slider/inactive', 'SliderController@inactive')->name('admin.slider.inactive');
 
     //Admin Profile
 

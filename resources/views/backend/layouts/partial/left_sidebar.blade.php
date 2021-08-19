@@ -1,6 +1,6 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="{{ route('admin.dashboard') }}" class="brand-link">
      {{-- <img src="{{ Storage::url(setting('site_logo')) }}" width="150px" height="35px" alt="Sohan IT Logo"> --}}
       <span class="brand-text font-weight-light">Admin Dashboard</span>
     </a>
@@ -64,6 +64,14 @@
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Category
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.slider.index') }}" class="nav-link {{ Route::is('admin.slider.index') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Slider
               </p>
             </a>
           </li>
