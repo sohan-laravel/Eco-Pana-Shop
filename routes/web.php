@@ -23,13 +23,10 @@ Route::namespace('Admin')->prefix('admin')->group(function () {
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'auth:admin'], function () {
     //Route::get('/', 'IndexController@index')->name('index');
 
-    //Admin Property
-
-    Route::resource('property', 'PropertyController', ['names' => 'admin.property']);
 
     //Admin SubCategory
 
-    Route::resource('subcategory', 'SubcategoryController', ['names' => 'admin.subcategory']);
+    //Route::resource('subcategory', 'SubcategoryController', ['names' => 'admin.subcategory']);
 
     //Admin Category
 
@@ -39,6 +36,30 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'au
 
     Route::resource('slider', 'SliderController', ['names' => 'admin.slider']);
     Route::post('slider/inactive', 'SliderController@inactive')->name('admin.slider.inactive');
+
+    //Admin About Us
+
+    Route::resource('about', 'AboutController', ['names' => 'admin.about']);
+    Route::post('about/inactive', 'AboutController@inactive')->name('admin.about.inactive');
+
+    //Admin Leather Care
+
+    Route::resource('leather', 'LeatherController', ['names' => 'admin.leather']);
+    Route::post('leather/inactive', 'LeatherController@inactive')->name('admin.leather.inactive');
+
+    //Admin Make Story
+
+    Route::resource('story', 'StoryController', ['names' => 'admin.story']);
+    Route::post('story/inactive', 'StoryController@inactive')->name('admin.story.inactive');
+
+    //Admin journal
+
+    Route::resource('journal', 'JournalController', ['names' => 'admin.journal']);
+    Route::post('journal/inactive', 'JournalController@inactive')->name('admin.journal.inactive');
+
+    //Admin Accessories left side
+
+    Route::resource('accessories-left', 'AccessleftController', ['names' => 'admin.accessleft']);
 
     //Admin Profile
 

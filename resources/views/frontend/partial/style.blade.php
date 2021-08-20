@@ -11,3 +11,30 @@
   <link href="{{ asset('frontend/assets/vendor/aos/aos.css') }}" rel="stylesheet" />
 
   <link rel="stylesheet" type="text/css" href="{{ asset('frontend/assets/css/style.css') }}" />
+
+  <style>
+
+    /* about us */
+
+    @foreach ($about as $row)
+    #about_us { 
+     background-image: url({{ asset('frontend/images/AboutImage/'.$row->image) }});
+     background-repeat: no-repeat;
+     background-size: cover;
+
+    }
+      @endforeach
+
+    /* leather care */
+
+    @foreach ($leather as $row)
+
+    #leather_care{
+      background-image: url({{ asset('frontend/images/LeatherImage/'.$row->image) }});
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+@endforeach
+
+  </style>

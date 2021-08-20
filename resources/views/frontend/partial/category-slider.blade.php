@@ -15,7 +15,7 @@
           </a>
         </div>
       </div>
-@endforeach
+      @endforeach
 
     </div>
   </section>

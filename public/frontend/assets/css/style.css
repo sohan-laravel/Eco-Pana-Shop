@@ -458,12 +458,12 @@ a:visited {
 /*--------------------------------------------------------------
 #                               about us
 --------------------------------------------------------------*/
-#about_us { 
+/* #about_us { 
   background-image: url('../img/about_us/1.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   
-}
+} */
 #about_us .about_us{
   padding: 200px 300px;
   text-align: center;
@@ -627,11 +627,11 @@ a:visited {
 # leather_care
 --------------------------------------------------------------*/
 
-#leather_care{
+/* #leather_care{
  background-image: url('../img/leather_care/1.jpg');
  background-repeat: no-repeat;
   background-size: cover;
-}
+} */
 #leather_care .section_title .leather {
   color: rgb(247, 240, 240);
   font-size: 40px;

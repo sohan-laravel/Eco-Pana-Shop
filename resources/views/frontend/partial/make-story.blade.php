@@ -7,23 +7,25 @@
 
     <div class="row no-gutters">
       <div class="col-lg-6 col-md-6 col-sm-0"></div>
+
+       @foreach ($story as $row)
+
       <div class="col-lg-6 col-md-6 col-sm-12 border-left border-dark">
         <div class="row p-4">
           <div class="col-6" data-aos="fade-up" data-aos-duration="3000" data-aos-anchor-placement="top-center">
             <p>
-              Literacy Studio for schools: engage & support struggling
-              readers. Dreaming up New Books: Easy to Read. Hard to Put Down.
-              Follow Us On Social Media. Contact Us For Details. Donate
-              Online. Explore The Library. Highlights: Donation Option
-              Available, Quote Available.
+              {!! $row->description !!}
             </p>
           </div>
           <div class="col-6">
-            <img class="img-fluid" src="{{ asset('frontend/assets/img/maker_story/1.png') }}" />
+            <img class="img-fluid" src="{{ asset('frontend/images/StoryImage/'.$row->image) }}" />
           </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-12 border-right border-dark">
+
+      @endforeach
+
+      {{-- <div class="col-lg-6 col-md-6 col-sm-12 border-right border-dark">
         <div class="row p-4">
           <div class="col-6">
             <img class="img-fluid" src="{{ asset('frontend/assets/img/maker_story/2.jpg') }}" />
@@ -38,7 +40,7 @@
             </p>
           </div>
         </div>
-      </div>
+      </div> --}}
       <div class="col-lg-6 col-md-6 col-sm-0"></div>
     </div>
   </section>

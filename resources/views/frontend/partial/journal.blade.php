@@ -4,17 +4,13 @@
     </div>
 
     <div class="row no-gutters">
+
+       @foreach ($journal as $row)
+
       <div class="col-3">
-        <a href=""><img src="{{ asset('frontend/assets/img/journal/1.png') }}" class="img-thumbnail" /></a>
+        <a href="{{ $row->link }}" target="_blank"><img src="{{ asset('frontend/images/JournalImage/'.$row->image) }}" class="img-thumbnail" /></a>
       </div>
-      <div class="col-3">
-        <a href=""><img src="{{ asset('frontend/assets/img/journal/2.jpg') }}" class="img-thumbnail" /></a>
-      </div>
-      <div class="col-3">
-        <a href=""><img src="{{ asset('frontend/assets/img/journal/1.png') }}" class="img-thumbnail" /></a>
-      </div>
-      <div class="col-3">
-        <a href=""><img src="{{ asset('frontend/assets/img/journal/2.jpg') }}" class="img-thumbnail" /></a>
-      </div>
+
+     @endforeach
     </div>
   </section>

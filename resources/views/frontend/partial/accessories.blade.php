@@ -8,24 +8,17 @@
     <div class="row no-gutters">
       <div class="col-3">
         <div class="row">
+           @foreach ($accessleft as $row)
           <div class="col-12">
             <div class="card">
-              <img class="card-img-top" src="{{ asset('frontend/assets/img/accessories/bag.jpg') }}" alt="Card image" />
+              <img class="card-img-top" src="{{ asset('frontend/images/AccessoriesLeftImage/'.$row->image) }}" alt="Card image" />
               <div class="card-img-overlay">
-                <h2 class="card-title font-weight-bold">Bag</h2>
+                <h2 class="card-title font-weight-bold">{{ $row->name }}</h2>
                 <a href="#" class="btn btn-info">See ALL</a>
               </div>
             </div>
           </div>
-          <div class="col-12">
-            <div class="card">
-              <img class="card-img-top" src="{{ asset('frontend/assets/img/accessories/bag.jpg') }}" alt="Card image" />
-              <div class="card-img-overlay">
-                <h2 class="card-title font-weight-bold">Bag</h2>
-                <a href="#" class="btn btn-info">See ALL</a>
-              </div>
-            </div>
-          </div>
+         @endforeach
         </div>
       </div>
 
