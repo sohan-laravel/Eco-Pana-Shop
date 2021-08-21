@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 
 @section('title')
-   Accessories Left Side
+  Topbar
 @endsection
 
 @section('css')
@@ -16,50 +16,70 @@
     <div class="card">
         <div class="card-header">
 
-            <h3 class="card-title"> Accessories Left Side <span style="color: red;">(Only 2 Accessories Item Upload)</span></h3>
+            <h3 class="card-title"> Topbar</h3>
 
             <div class="container">
-                <a href="{{ route('admin.accessleft.create') }}" class="btn btn-outline-success btn-sm float-right">
+                <a href="{{ route('admin.topbar.create') }}" class="btn btn-outline-success btn-sm float-right">
                    <i class="fas fa-plus-circle fa-w-20"></i><span> ADD</span>
                 </a>
             </div>
         </div>
 
         <div class="card-body">
-    <table id="accessleftTable" class="display" style="width:100%">
+    <table id="topbarTable" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>SL NO</th>
-                <th>Name</th>    
-                <th>Image</th>     
+                <th>Number</th>    
+                <th>Facebook</th>     
+                <th>Twitter</th>     
+                <th>Instagram</th>     
+                <th>Whatsapp</th>     
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
 
-            @foreach ($accessleft as $row)
+            @foreach ($topbar as $row)
 
            <tr>
                <td>{{ $loop->index + 1 }}</td>
-               <td>{{ $row->name }}</td>
                <td>
-                   @if($row->image != null)
-                        <img src="{{  asset('frontend/images/AccessoriesLeftImage/' .$row->image) }}" style="width: 100px;" class="img-fluid" alt="{{ $row->name }}" >
-                    @else
-                        —
-                    @endif
-               </td>
+                   <span class="badge rounded-pill bg-success">
+                       {{ $row->number }}
+                   </span>
+                </td>
+               <td>
+                   <span class="badge rounded-pill bg-primary">
+                       {{ substr($row->facebook, 0,  30)  }}
+                   </span>
+                </td>
+               <td>
+                   <span class="badge rounded-pill bg-primary">
+                       {{ substr($row->twitter, 0,  30)  }}
+                   </span>
+                </td>
+               <td>
+                   <span class="badge rounded-pill bg-primary">
+                       {{ substr($row->instagram, 0,  30)  }}
+                   </span>
+                </td>
+               <td>
+                   <span class="badge rounded-pill bg-primary">
+                       {{ substr($row->whatsapp, 0,  30)  }}
+                   </span>
+                </td>
                
                <td>
-                    <a href="{{ route('admin.accessleft.edit', $row->id) }}" class="btn btn-outline-primary btn-sm">
+                    <a href="{{ route('admin.topbar.edit', $row->id) }}" class="btn btn-outline-primary btn-sm">
                     <i class="fas fa-edit"></i></a>
 
-                    <form action="{{ route('admin.accessleft.destroy', $row->id) }}" id="delete_form" method="POST">
+                    <form action="{{ route('admin.topbar.destroy', $row->id) }}" id="delete_form" method="POST">
                         @csrf
 
                         @method('DELETE')
 
-                        <button type="submit" id="delete_accessleft" class="btn btn-outline-danger btn-sm mt-2"><i class="fas fa-trash"></i></button>
+                        <button type="submit" id="delete_topbar" class="btn btn-outline-danger btn-sm mt-2"><i class="fas fa-trash"></i></button>
                     </form>
 
                </td>
@@ -71,8 +91,11 @@
         <tfoot>
             <tr>
                 <th>SL NO</th>
-                <th>Name</th>
-                <th>Image</th>       
+                <th>Number</th>    
+                <th>Facebook</th>     
+                <th>Twitter</th>     
+                <th>Instagram</th>     
+                <th>Whatsapp</th>     
                 <th>Action</th>
             </tr>
         </tfoot>
@@ -94,12 +117,12 @@
         // Datatable 
 
         $(document).ready(function() {
-            $('#accessleftTable').DataTable();
+            $('#topbarTable').DataTable();
         });
 
         // Delete function
 
-            $(document).on('click', '#delete_accessleft', function (event) {
+            $(document).on('click', '#delete_topbar', function (event) {
             event.preventDefault();
             var url = $(this).attr('href');
             $('#delete_form').attr('action', url);

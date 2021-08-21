@@ -4,12 +4,18 @@
         <div class="col-2 ">
           <a href="" class=""><button type="button" class="btn btn-dark">MEMBERS</button></a>
         </div>
+
+        @foreach ($topbar as $row)
+
         <div class="col-7 header_social text-center">
-          <a href=""><i class="fab fa-facebook"></i></a>
-          <a href=""><i class="fab fa-instagram"></i></a>
-          <a href=""><i class="fab fa-whatsapp"></i></a>
-          <a href=""><i class="fas fa-phone-alt"></i> (+88) 0177777777</a>
+          <a href="{{ $row->facebook }}" target="_blank"><i class="fab fa-facebook"></i></a>
+          <a href="{{ $row->instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="{{ $row->whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+          <a href="#"><i class="fas fa-phone-alt"></i> {{ $row->number }}</a>
         </div>
+
+        @endforeach
+
         <div class="col-3 header_right">
           <div class="box">
             <div class="container-2">

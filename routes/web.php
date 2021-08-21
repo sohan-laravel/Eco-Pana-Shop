@@ -61,6 +61,18 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'au
 
     Route::resource('accessories-left', 'AccessleftController', ['names' => 'admin.accessleft']);
 
+    //Admin Accessories middle side
+
+    Route::resource('accessories-middle', 'AccessmiddleController', ['names' => 'admin.accessmiddle']);
+
+    //Admin Accessories middle side
+
+    Route::resource('accessories-right', 'AccessrightController', ['names' => 'admin.accessright']);
+
+    //Admin Topbar
+
+    Route::resource('topbar', 'TopbarController', ['names' => 'admin.topbar']);
+
     //Admin Profile
 
     Route::get('profile', 'ProfileController@index')->name('admin.profile');

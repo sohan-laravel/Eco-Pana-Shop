@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 
 @section('title')
-   Accessories Left Side
+   Accessories Right Side
 @endsection
 
 @section('css')
@@ -16,17 +16,17 @@
     <div class="card">
         <div class="card-header">
 
-            <h3 class="card-title"> Accessories Left Side <span style="color: red;">(Only 2 Accessories Item Upload)</span></h3>
+            <h3 class="card-title"> Accessories Right Side <span style="color: red;">(Only 2 Accessories Item Upload)</span></h3>
 
             <div class="container">
-                <a href="{{ route('admin.accessleft.create') }}" class="btn btn-outline-success btn-sm float-right">
+                <a href="{{ route('admin.accessright.create') }}" class="btn btn-outline-success btn-sm float-right">
                    <i class="fas fa-plus-circle fa-w-20"></i><span> ADD</span>
                 </a>
             </div>
         </div>
 
         <div class="card-body">
-    <table id="accessleftTable" class="display" style="width:100%">
+    <table id="accessrightTable" class="display" style="width:100%">
         <thead>
             <tr>
                 <th>SL NO</th>
@@ -37,29 +37,29 @@
         </thead>
         <tbody>
 
-            @foreach ($accessleft as $row)
+            @foreach ($accessright as $row)
 
            <tr>
                <td>{{ $loop->index + 1 }}</td>
                <td>{{ $row->name }}</td>
                <td>
                    @if($row->image != null)
-                        <img src="{{  asset('frontend/images/AccessoriesLeftImage/' .$row->image) }}" style="width: 100px;" class="img-fluid" alt="{{ $row->name }}" >
+                        <img src="{{  asset('frontend/images/AccessoriesRightImage/' .$row->image) }}" style="width: 100px;" class="img-fluid" alt="{{ $row->name }}" >
                     @else
                         —
                     @endif
                </td>
                
                <td>
-                    <a href="{{ route('admin.accessleft.edit', $row->id) }}" class="btn btn-outline-primary btn-sm">
+                    <a href="{{ route('admin.accessright.edit', $row->id) }}" class="btn btn-outline-primary btn-sm">
                     <i class="fas fa-edit"></i></a>
 
-                    <form action="{{ route('admin.accessleft.destroy', $row->id) }}" id="delete_form" method="POST">
+                    <form action="{{ route('admin.accessright.destroy', $row->id) }}" id="delete_form" method="POST">
                         @csrf
 
                         @method('DELETE')
 
-                        <button type="submit" id="delete_accessleft" class="btn btn-outline-danger btn-sm mt-2"><i class="fas fa-trash"></i></button>
+                        <button type="submit" id="delete_accessright" class="btn btn-outline-danger btn-sm mt-2"><i class="fas fa-trash"></i></button>
                     </form>
 
                </td>
@@ -94,12 +94,12 @@
         // Datatable 
 
         $(document).ready(function() {
-            $('#accessleftTable').DataTable();
+            $('#accessrightTable').DataTable();
         });
 
         // Delete function
 
-            $(document).on('click', '#delete_accessleft', function (event) {
+            $(document).on('click', '#delete_accessright', function (event) {
             event.preventDefault();
             var url = $(this).attr('href');
             $('#delete_form').attr('action', url);

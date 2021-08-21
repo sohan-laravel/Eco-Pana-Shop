@@ -91,6 +91,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.topbar.index') }}" class="nav-link {{ Route::is('admin.topbar.index') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Topbar
+              </p>
+            </a>
+          </li>
           {{-- <li class="nav-item">
             <a href="{{ route('admin.accessleft.index') }}" class="nav-link {{ Route::is('admin.accessleft.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -116,13 +124,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.accessmiddle.index') }}" class="nav-link {{ Route::is('admin.accessmiddle.index') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Accessories Middle</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.accessright.index') }}" class="nav-link {{ Route::is('admin.accessright.index') ? 'active' : '' }}">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Accessories Right</p>
                 </a>

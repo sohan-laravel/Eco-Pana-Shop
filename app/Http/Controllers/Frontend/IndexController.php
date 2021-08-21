@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Frontend;
 
 use App\About;
 use App\Accessleft;
+use App\Accessmiddle;
+use App\Accessright;
 use App\Http\Controllers\Controller;
 use App\Journal;
 use App\Leather;
 use App\Model\Category;
 use App\Slider;
 use App\Story;
+use App\Topbar;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -23,7 +26,10 @@ class IndexController extends Controller
         $story = Story::where('status', 1)->orderBy('id', 'desc')->get();
         $journal = Journal::where('status', 1)->orderBy('id', 'desc')->get();
         $accessleft = Accessleft::orderBy('id', 'desc')->get();
-        return view('frontend.index', compact('categories', 'slider', 'about', 'leather', 'story', 'journal', 'accessleft'));
+        $accessmiddle = Accessmiddle::orderBy('id', 'desc')->get();
+        $accessright = Accessright::orderBy('id', 'desc')->get();
+        $topbar = Topbar::orderBy('id', 'desc')->get();
+        return view('frontend.index', compact('categories', 'slider', 'about', 'leather', 'story', 'journal', 'accessleft', 'accessmiddle', 'accessright', 'topbar'));
     }
 
     public function contact()

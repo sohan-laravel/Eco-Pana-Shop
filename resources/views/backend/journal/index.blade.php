@@ -53,7 +53,7 @@
                </td>
                <td>
                     <span class="badge rounded-pill bg-primary">
-                      {{ $row->link }}
+                       {{ substr($row->link, 0,  30)  }}
                    </span>
                </td>
 
