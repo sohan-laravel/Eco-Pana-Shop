@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Model\Category;
 use App\Model\Subcategory;
 use Illuminate\Http\Request;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Str;
-use DataTables;
 use Image;
-use Illuminate\Support\Facades\DB;
 
 class SubcategoryController extends Controller
 {
@@ -20,36 +19,9 @@ class SubcategoryController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $imageUrl = asset('backend/images/SubCategoryImage/');
-            $data = Subcategory::all();
-
-            return Datatables::of($data)
-                ->addIndexColumn()
-                ->editColumn('image', function ($row) use ($imageUrl) {
-                    return '<img src="' . $imageUrl . '/' . $row->image . '" height="30" width="30"/>';
-                })
-                ->editColumn('category_name', function ($row) {
-                    return $row->category->category_name;
-                })
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '
-                    <a href="javascript:void(0)" data-id="' . $row->id . '" 
-                    class="btn btn-outline-primary btn-sm edit" data-toggle="modal" data-target="#editModal">
-                    <i class="fas fa-edit"></i></a>
-                    <a href="' . route('admin.subcategory.destroy', [$row->id]) . '" class="btn btn-outline-danger btn-sm" id="delete_subcategory"><i class="fas fa-trash"></i></a>
-                    
-                    ';
-                    return $actionBtn;
-                })
-
-                ->rawColumns(['action', 'image', 'category_name'])
-                ->make(true);
-        }
-
-        $categories = Category::all();
-
-        return view('backend.subcategory.index', compact('categories'));
+        $subcategories = Subcategory::orderBy('id', 'desc')->get();
+        $categories = Category::orderBy('id', 'desc')->get();
+        return view('backend.subcategory.index', compact('subcategories', 'categories'));
     }
 
     /**
@@ -59,7 +31,8 @@ class SubcategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::orderBy('id', 'desc')->get();
+        return view('backend.subcategory.create', compact('categories'));
     }
 
     /**
@@ -71,30 +44,37 @@ class SubcategoryController extends Controller
     public function store(Request $request)
     {
 
+        //return $request->all();
+
         $this->validate($request, [
 
-            'subcategory_name'  => 'required|max:255',
-
+            'subcat'  => 'required',
         ]);
 
-        $slug = Str::slug($request->subcategory_name, '-');
+        $subcategories = new Subcategory();
 
-        //insert that image
-        $catimage = $request->image;
-        $img = $slug . '.' . uniqid() . date('.d-m-y.') . '.' . $catimage->getClientOriginalExtension();
-        $location = public_path('backend/images/SubCategoryImage/' . $img);
-        Image::make($catimage)->resize(1000, 400)->save($location);
+        $subcategories->category_id = $request->category_id;
+        $subcategories->subcat = $request->subcat;
+        $subcategories->slug = Str::slug($request->subcat, '-');
 
-        $data = array(
-            'category_id' => $request->category_id,
-            'subcategory_name' => $request->subcategory_name,
-            'subcategory_slug' => Str::slug($request->subcategory_name, '-'),
-            'image' => $img,
-        );
 
-        DB::table('subcategories')->insert($data);
+        if ($request->hasFile('image')) {
 
-        return response()->json('Successfully Inserted!');
+            //insert that image
+            $zimage = $request->file('image');
+            $img = rand(1111, 9999) . date('.d-m-y.') . '.' . $zimage->getClientOriginalExtension();
+            $location = public_path('frontend/images/SubCategoryImage/' . $img);
+            Image::make($zimage)->save($location);
+
+
+            $subcategories->image = $img;
+        }
+
+        $subcategories->save();
+
+        Toastr::success('subcategory Successfully Created', 'Success');
+
+        return redirect()->route('admin.subcategory.index');
     }
 
     /**
@@ -116,50 +96,12 @@ class SubcategoryController extends Controller
      */
     public function edit($id)
     {
-        // $data = DB::table('categories')->where('id', $id)->first();
+        $subcategory = Subcategory::find($id);
+        $categories = Category::orderBy('id', 'desc')->get();
 
-        // return view('backend.category.edit', compact('data'));
+        return view('backend.subcategory.edit', compact('subcategory', 'categories'));
     }
 
-    public function editcat($id)
-    {
-        $data = DB::table('subcategories')->where('id', $id)->first();
-        $categories = Category::all();
-
-        return view('backend.subcategory.edit', compact('data', 'categories'));
-    }
-    public function updateSubcategory(Request $request)
-    {
-        $this->validate($request, [
-
-            'subcategory_name'  => 'required|max:255',
-
-        ]);
-
-        $slug = Str::slug($request->subcategory_name, '-');
-
-        $data = array();
-
-        $data['category_id'] = $request->category_id;
-        $data['subcategory_name'] = $request->subcategory_name;
-        $data['subcategory_slug'] = $slug;
-
-        if ($request->image) {
-            //insert that image
-            //$catimage = $request->image;
-            $catimage = $request->file('image');
-            $img = $slug . '.' . uniqid() . date('.d-m-y.') . '.' . $catimage->getClientOriginalExtension();
-            $location = public_path('backend/images/SubCategoryImage/' . $img);
-            Image::make($catimage)->resize(1000, 400)->save($location);
-            $data['image'] = $img;
-        } else {
-            $data['image'] = $request->old_image;
-        }
-
-        DB::table('subcategories')->where('id', $request->id)->update($data);
-
-        return response()->json('Successfully SubCategory Updated!');
-    }
 
     /**
      * Update the specified resource in storage.
@@ -170,9 +112,42 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $data = Category::find($id);
 
-        // return $data;
+        //return $request->all();
+
+        $this->validate($request, [
+
+            'subcat'  => 'required',
+        ]);
+
+        $subcategories = Subcategory::find($id);
+
+        $subcategories->category_id = $request->category_id;
+        $subcategories->subcat = $request->subcat;
+        $subcategories->slug = Str::slug($request->subcat, '-');
+
+
+        if ($request->hasFile('image')) {
+
+            if (file_exists(public_path('frontend/images/SubCategoryImage/' . $subcategories->image))) {
+                unlink(public_path('frontend/images/SubCategoryImage/' . $subcategories->image));
+            }
+
+            //insert that image
+            $zimage = $request->file('image');
+            $img = rand(1111, 9999) . date('.d-m-y.') . '.' . $zimage->getClientOriginalExtension();
+            $location = public_path('frontend/images/SubCategoryImage/' . $img);
+            Image::make($zimage)->save($location);
+
+
+            $subcategories->image = $img;
+        }
+
+        $subcategories->save();
+
+        Toastr::success('subcategory Successfully Updated', 'Success');
+
+        return redirect()->route('admin.subcategory.index');
     }
 
     /**
@@ -183,17 +158,18 @@ class SubcategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Subcategory::find($id);
-        if (!is_null($category)) {
+        $subcategories = Subcategory::find($id);
 
-            if (file_exists(public_path('backend/images/SubCategoryImage/' . $category->image))) {
-                unlink(public_path('backend/images/SubCategoryImage/' . $category->image));
+        if (!is_null($subcategories)) {
+
+            if (file_exists(public_path('frontend/images/SubCategoryImage/' . $subcategories->image))) {
+                unlink(public_path('frontend/images/SubCategoryImage/' . $subcategories->image));
             }
 
-            $category->delete();
+            $subcategories->delete();
         }
 
-        return response()->json('Successfully Deleted!');
+        Toastr::success('subcategory Successfully Deleted', 'Success');
 
         return back();
     }

@@ -12,7 +12,7 @@
         </div>
 
         <div class="carousel-item">
-          <img class="img-fluid" src="{{ asset('frontend/images/SliderImage/'.$row->image) }}" />
+          <img class="img-fluid" src="{{ asset('frontend/images/SliderImage/'.$row->image) }}" alt="{{ $row->name }}" />
          
         </div>
 

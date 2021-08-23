@@ -26,11 +26,22 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin', 'middleware' => 'au
 
     //Admin SubCategory
 
-    //Route::resource('subcategory', 'SubcategoryController', ['names' => 'admin.subcategory']);
+    Route::resource('subcategory', 'SubcategoryController', ['names' => 'admin.subcategory']);
 
     //Admin Category
 
     Route::resource('category', 'CategoryController', ['names' => 'admin.category']);
+
+    //Admin Product
+
+    Route::resource('product', 'ProductController', ['names' => 'admin.product']);
+    Route::post('product/inactive', 'ProductController@inactive')->name('admin.product.inactive');
+
+    //Admin Menu
+
+    Route::resource('menu', 'MenuController', ['names' => 'admin.menu']);
+    Route::post('menu/inactive', 'MenuController@inactive')->name('admin.menu.inactive');
+
 
     //Admin Slider
 

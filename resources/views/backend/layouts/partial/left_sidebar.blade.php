@@ -44,10 +44,34 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{ route('admin.menu.index') }}" class="nav-link {{ Route::is('admin.menu.index') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Menu
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('admin.category.index') }}" class="nav-link {{ Route::is('admin.category.index') ? 'active' : '' }}">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Category
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.subcategory.index') }}" class="nav-link {{ Route::is('admin.subcategory.index') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                SubCategory
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('admin.product.index') }}" class="nav-link {{ Route::is('admin.product.index') ? 'active' : '' }}">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Product
               </p>
             </a>
           </li>
